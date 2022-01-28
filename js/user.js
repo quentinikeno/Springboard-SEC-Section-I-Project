@@ -124,6 +124,7 @@ function favoriteStoriesUI() {
 	const { username, loginToken: token } = currentUser;
 	const storyId = $parentLi.attr("id");
 	const favorite = $(this).data("favorite");
+	console.log(favorite);
 	if (!favorite) {
 		//If the story star doesn't have the data for "favorite" === true, use User.toggleFavorite with method POST to add the favorite
 		User.toggleFavorite(username, token, storyId, "POST");
@@ -134,7 +135,7 @@ function favoriteStoriesUI() {
 		$(this).data("favorite", false);
 	}
 	//Toggle the class for the star to show the outlined star or filled-in star
-	$(this).toggleClass(["far", "fas", "favorite"]);
+	$(this).toggleClass(["far", "fas"]);
 }
 
 $allStoriesList.on("click", ".story-star", favoriteStoriesUI);

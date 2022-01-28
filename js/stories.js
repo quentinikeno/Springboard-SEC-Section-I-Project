@@ -21,11 +21,23 @@ async function getAndShowStoriesOnStart() {
 
 function generateStoryMarkup(story) {
 	// console.debug("generateStoryMarkup", story);
+	//Class for the favorite story-star
+	let starClass = "far";
+	let isFavorite = false;
+	//If a user is logged in
+	if (currentUser) {
+		//If the storyId is in the user's favorites, set the class for the favorite story-star so that it's filled in in the markup below
+		const { favorites } = currentUser;
+		if (favorites.find((favorite) => favorite.storyId === story.storyId)) {
+			starClass = "fas";
+			isFavorite = true;
+		}
+	}
 
 	const hostName = story.getHostName();
 	return $(`
       <li id="${story.storyId}">
-	  	<i class="story-star far fa-star"></i>
+	  	<i class="story-star ${starClass} fa-star" data-favorite=${isFavorite}></i>
         <a href="${story.url}" target="a_blank" class="story-link">
           ${story.title}
         </a>

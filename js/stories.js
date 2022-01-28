@@ -32,6 +32,8 @@ function generateStoryMarkup(story) {
 			starClass = "fas";
 			isFavorite = true;
 		}
+	} else {
+		starClass = "hidden";
 	}
 
 	const hostName = story.getHostName();
@@ -81,3 +83,27 @@ async function submitStory(evt) {
 }
 
 $submitForm.on("submit", submitStory);
+
+/** Gets list of favorite stories from currentUser, generates their HTML, and puts on page. */
+
+function putFavoritesOnPage() {
+	console.debug("putFavoritesOnPage");
+	const { favorites } = currentUser;
+
+	$allStoriesList.empty();
+
+	if (favorites.length) {
+		// loop through all of our stories and generate HTML for them
+		for (let favorite of favorites) {
+			const $favorite = generateStoryMarkup(favorite);
+			$allStoriesList.append($favorite);
+		}
+	} else {
+		//if favorites list is empty, append the paragraph below
+		$allStoriesList.append($("<p>No favorites added!<p>"));
+	}
+
+	$allStoriesList.show();
+}
+
+$navFavorites.on("click", putFavoritesOnPage);

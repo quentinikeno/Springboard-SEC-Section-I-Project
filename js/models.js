@@ -208,7 +208,21 @@ class User {
 				method: method,
 				params: { token },
 			});
-			console.log(response);
+			//Update the favorites for the currentUser using the response body
+			currentUser.favorites = response.data.user.favorites.map(
+				(favorite) => {
+					const { storyId, title, author, url, username, createdAt } =
+						favorite;
+					return new Story({
+						storyId,
+						title,
+						author,
+						url,
+						username,
+						createdAt,
+					});
+				}
+			);
 		} catch (err) {
 			console.error("toggleFavorite failed", err);
 			return null;

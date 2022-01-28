@@ -110,7 +110,9 @@ function saveUserCredentialsInLocalStorage() {
 function updateUIOnUserLogin() {
 	console.debug("updateUIOnUserLogin");
 
-	$allStoriesList.show();
+	//$allStoriesList.show();
+	getAndShowStoriesOnStart();
+	$accountForms.hide(); //Hide the account forms on login
 
 	updateNavOnLogin();
 }
@@ -124,7 +126,6 @@ function favoriteStoriesUI() {
 	const { username, loginToken: token } = currentUser;
 	const storyId = $parentLi.attr("id");
 	const favorite = $(this).data("favorite");
-	console.log(favorite);
 	if (!favorite) {
 		//If the story star doesn't have the data for "favorite" === true, use User.toggleFavorite with method POST to add the favorite
 		User.toggleFavorite(username, token, storyId, "POST");

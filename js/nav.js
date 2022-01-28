@@ -43,4 +43,5 @@ function updateNavOnLogin() {
 	$navLogin.hide();
 	$navLogOut.show();
 	$navUserProfile.text(`${currentUser.username}`).show();
+	$navLeft.show(); //Show .nav-left with submit, favorites
 }

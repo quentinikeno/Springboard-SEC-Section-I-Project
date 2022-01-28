@@ -6,10 +6,10 @@ let storyList;
 /** Get and show stories when site first loads. */
 
 async function getAndShowStoriesOnStart() {
-  storyList = await StoryList.getStories();
-  $storiesLoadingMsg.remove();
+	storyList = await StoryList.getStories();
+	$storiesLoadingMsg.remove();
 
-  putStoriesOnPage();
+	putStoriesOnPage();
 }
 
 /**
@@ -20,11 +20,12 @@ async function getAndShowStoriesOnStart() {
  */
 
 function generateStoryMarkup(story) {
-  // console.debug("generateStoryMarkup", story);
+	// console.debug("generateStoryMarkup", story);
 
-  const hostName = story.getHostName();
-  return $(`
+	const hostName = story.getHostName();
+	return $(`
       <li id="${story.storyId}">
+	  	<i class="story-star far fa-star"></i>
         <a href="${story.url}" target="a_blank" class="story-link">
           ${story.title}
         </a>
@@ -38,15 +39,33 @@ function generateStoryMarkup(story) {
 /** Gets list of stories from server, generates their HTML, and puts on page. */
 
 function putStoriesOnPage() {
-  console.debug("putStoriesOnPage");
+	console.debug("putStoriesOnPage");
 
-  $allStoriesList.empty();
+	$allStoriesList.empty();
 
-  // loop through all of our stories and generate HTML for them
-  for (let story of storyList.stories) {
-    const $story = generateStoryMarkup(story);
-    $allStoriesList.append($story);
-  }
+	// loop through all of our stories and generate HTML for them
+	for (let story of storyList.stories) {
+		const $story = generateStoryMarkup(story);
+		$allStoriesList.append($story);
+	}
 
-  $allStoriesList.show();
+	$allStoriesList.show();
 }
+
+//Write a function in stories.js that is called when users submit the form. Pick a good name for it.
+//This function should get the data from the form, call the .addStory method you wrote, and then put that new story on the page.
+async function submitStory(evt) {
+	evt.preventDefault();
+	//Get title, author and url from story submit form
+	const title = $("#story-title").val();
+	const author = $("#story-author").val();
+	const url = $("#story-url").val();
+	//Use the addStory method for the current user and an object with the data from the story submit form
+	await storyList.addStory(currentUser, { title, author, url });
+	//Get the stories again and put them on the page
+	await getAndShowStoriesOnStart();
+	//Hide the story submit form
+	$submitForm.hide();
+}
+
+$submitForm.on("submit", submitStory);

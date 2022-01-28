@@ -26,7 +26,7 @@ function navLoginClick(evt) {
 $navLogin.on("click", navLoginClick);
 
 /** Show create story form on click on "submit"*/
-
+//Write a function in nav.js that is called when users click that navbar link.
 function navSubmitClick(evt) {
 	console.debug("navSubmitClick", evt);
 	hidePageComponents();

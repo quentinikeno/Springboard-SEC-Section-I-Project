@@ -37,6 +37,11 @@
 	display: block;
 }
 
+.story-star {
+	cursor: pointer;
+	margin-right: 0.5rem;
+}
+
 #story-form button {
 	width: 6rem;
 	margin-left: 80px;

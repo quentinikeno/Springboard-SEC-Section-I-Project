@@ -198,4 +198,20 @@ class User {
 			return null;
 		}
 	}
+
+	//Favorite and un-favorite stories
+	//Update UI using favoriteStoriesUI in users.js
+	static async toggleFavorite(username, token, storyId, method) {
+		try {
+			const response = await axios({
+				url: `${BASE_URL}/users/${username}/favorites/${storyId}`,
+				method: method,
+				params: { token },
+			});
+			console.log(response);
+		} catch (err) {
+			console.error("toggleFavorite failed", err);
+			return null;
+		}
+	}
 }

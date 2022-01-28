@@ -201,28 +201,27 @@ class User {
 
 	//Favorite and un-favorite stories
 	//Update UI using favoriteStoriesUI in users.js
-	static async toggleFavorite(username, token, storyId, method) {
+	async toggleFavorite(storyId, method) {
 		try {
+			const { loginToken: token, username } = this;
 			const response = await axios({
 				url: `${BASE_URL}/users/${username}/favorites/${storyId}`,
 				method: method,
 				params: { token },
 			});
-			//Update the favorites for the currentUser using the response body
-			currentUser.favorites = response.data.user.favorites.map(
-				(favorite) => {
-					const { storyId, title, author, url, username, createdAt } =
-						favorite;
-					return new Story({
-						storyId,
-						title,
-						author,
-						url,
-						username,
-						createdAt,
-					});
-				}
-			);
+			//Update the favorites for this (the currentUser) using the response body
+			this.favorites = response.data.user.favorites.map((favorite) => {
+				const { storyId, title, author, url, username, createdAt } =
+					favorite;
+				return new Story({
+					storyId,
+					title,
+					author,
+					url,
+					username,
+					createdAt,
+				});
+			});
 		} catch (err) {
 			console.error("toggleFavorite failed", err);
 			return null;

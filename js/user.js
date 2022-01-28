@@ -123,16 +123,15 @@ function updateUIOnUserLogin() {
 function favoriteStoriesUI() {
 	console.debug("favoriteStoriesUI");
 	const $parentLi = $(this).parent();
-	const { username, loginToken: token } = currentUser;
 	const storyId = $parentLi.attr("id");
 	const favorite = $(this).data("favorite");
 	if (!favorite) {
 		//If the story star doesn't have the data for "favorite" === true, use User.toggleFavorite with method POST to add the favorite
-		User.toggleFavorite(username, token, storyId, "POST");
+		currentUser.toggleFavorite(storyId, "POST");
 		$(this).data("favorite", true);
 	} else {
 		//If the story star has data for "favorite" === true, use User.toggleFavorite with method DELETE to delete the user favorite
-		User.toggleFavorite(username, token, storyId, "DELETE");
+		currentUser.toggleFavorite(storyId, "DELETE");
 		$(this).data("favorite", false);
 	}
 	//Toggle the class for the star to show the outlined star or filled-in star

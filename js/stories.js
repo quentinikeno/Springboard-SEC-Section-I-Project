@@ -45,6 +45,7 @@ function generateStoryMarkup(story) {
         </a>
         <small class="story-hostname">(${hostName})</small>
         <small class="story-author">by ${story.author}</small>
+		<i class="far fa-trash-alt delete"></i>
         <small class="story-user">posted by ${story.username}</small>
       </li>
     `);
@@ -75,7 +76,7 @@ async function submitStory(evt) {
 	const author = $("#story-author").val();
 	const url = $("#story-url").val();
 	//Use the addStory method for the current user and an object with the data from the story submit form
-	await storyList.addStory(currentUser, { title, author, url });
+	await StoryList.addStory(currentUser, { title, author, url });
 	//Get the stories again and put them on the page
 	await getAndShowStoriesOnStart();
 	//Hide the story submit form

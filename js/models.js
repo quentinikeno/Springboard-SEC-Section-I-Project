@@ -71,7 +71,7 @@ class StoryList {
 	 * Returns the new Story instance
 	 */
 
-	async addStory(user, newStory) {
+	static async addStory(user, newStory) {
 		//Destructure token from user instance
 		const { loginToken: token } = user;
 		//Make axios post request to API with the token and newStory
@@ -85,6 +85,21 @@ class StoryList {
 			response.data;
 		//Put the destructured variables into an object literal and use that to return an new Story instance
 		return new Story({ storyId, title, author, url, username, createdAt });
+	}
+
+	//Delete a story with the API
+	static async deleteStory(user, storyId) {
+		try {
+			const { loginToken: token } = user;
+			const response = await axios({
+				url: `${BASE_URL}/stories/${storyId}`,
+				method: "DELETE",
+				params: { token },
+			});
+		} catch (err) {
+			console.error("deleteStory failed", err);
+			return null;
+		}
 	}
 }
 

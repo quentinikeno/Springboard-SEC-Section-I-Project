@@ -42,6 +42,10 @@
 	margin-right: 0.5rem;
 }
 
+.delete {
+	margin-left: 2em;
+}
+
 #story-form button {
 	width: 6rem;
 	margin-left: 80px;

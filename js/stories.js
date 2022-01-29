@@ -112,7 +112,7 @@ function putFavoritesOnPage() {
 		}
 	} else {
 		//if favorites list is empty, append the paragraph below
-		$allStoriesList.append($("<p>No favorites added!<p>"));
+		$allStoriesList.append($("<h4>No favorites added!<h4>"));
 	}
 
 	$allStoriesList.show();
@@ -121,7 +121,7 @@ function putFavoritesOnPage() {
 $navFavorites.on("click", putFavoritesOnPage);
 
 //Delete story
-function deleteClickedStoryUpdateUI() {
+async function deleteClickedStoryUpdateUI() {
 	console.debug("deleteClickedStory");
 	const $parentLi = $(this).parent();
 	//Get the story ID from the parent Li's id
@@ -130,7 +130,7 @@ function deleteClickedStoryUpdateUI() {
 	//Confirm with user if they want to delete the story
 	if (window.confirm("Are you sure you want to delete this story?")) {
 		//Delete story with the deleteStory method using the API
-		StoryList.deleteStory(currentUser, storyId);
+		await StoryList.deleteStory(currentUser, storyId);
 		//Remove the deleted story from the currentUser's ownStories array
 		removeStoryFromArray(ownStories, storyId);
 		//Remove the deleted story from the currentUser's favorites array

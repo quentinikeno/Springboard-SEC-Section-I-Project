@@ -123,6 +123,7 @@ function updateUIOnUserLogin() {
 function favoriteStoriesUI() {
 	console.debug("favoriteStoriesUI");
 	const $parentLi = $(this).parent();
+	//Get the story ID from the parent Li's id
 	const storyId = $parentLi.attr("id");
 	const favorite = $(this).data("favorite");
 	if (!favorite) {

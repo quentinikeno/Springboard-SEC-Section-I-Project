@@ -82,7 +82,7 @@ class StoryList {
 		});
 		//Destructure the variables needed from the response body to create a new Story instance
 		const { storyId, title, author, url, username, createdAt } =
-			response.data;
+			response.data.story;
 		//Put the destructured variables into an object literal and use that to return an new Story instance
 		return new Story({ storyId, title, author, url, username, createdAt });
 	}

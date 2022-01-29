@@ -43,7 +43,8 @@
 }
 
 .delete {
-	margin-left: 2em;
+	cursor: pointer;
+	margin-left: 1em;
 }
 
 #story-form button {

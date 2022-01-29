@@ -121,7 +121,7 @@ function putFavoritesOnPage() {
 $navFavorites.on("click", putFavoritesOnPage);
 
 //Delete story
-function deleteClickedStory() {
+function deleteClickedStoryUpdateUI() {
 	console.debug("deleteClickedStory");
 	const $parentLi = $(this).parent();
 	//Get the story ID from the parent Li's id
@@ -143,4 +143,4 @@ function deleteClickedStory() {
 	}
 }
 
-$allStoriesList.on("click", "i.delete", deleteClickedStory);
+$allStoriesList.on("click", "i.delete", deleteClickedStoryUpdateUI);

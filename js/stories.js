@@ -126,20 +126,26 @@ function deleteClickedStoryUpdateUI() {
 	const $parentLi = $(this).parent();
 	//Get the story ID from the parent Li's id
 	const storyId = $parentLi.attr("id");
-	const { ownStories } = currentUser;
+	const { ownStories, favorites } = currentUser;
 	//Confirm with user if they want to delete the story
 	if (window.confirm("Are you sure you want to delete this story?")) {
 		//Delete story with the deleteStory method using the API
 		StoryList.deleteStory(currentUser, storyId);
 		//Remove the deleted story from the currentUser's ownStories array
-		ownStories.splice(
-			ownStories.findIndex((ownStory) => ownStory.storyId === storyId),
-			1
-		);
+		removeStoryFromArray(ownStories, storyId);
+		//Remove the deleted story from the currentUser's favorites array
+		removeStoryFromArray(favorites, storyId);
 		//Remove story from the DOM
 		$parentLi.fadeOut(700, function () {
 			$(this).remove();
 		});
+	}
+}
+
+function removeStoryFromArray(arr, storyId) {
+	const storyIndex = arr.findIndex((el) => el.storyId === storyId);
+	if (storyIndex !== -1) {
+		arr.splice(storyIndex, 1);
 	}
 }
 
